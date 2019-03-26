@@ -1,0 +1,109 @@
+#arrow0 {
+    fill: #ccc; /* #66ccff; */
+}
+
+#arrow1 {
+    fill: red;
+}
+
+.pgnode circle {
+    stroke: steelblue;
+    stroke-width: 2px;
+}
+.pgnode text {
+    /*font-family: "Courier New";*/
+    font-size: 17px;
+    fill: black;
+}
+.pglink {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 5px;
+}
+
+.pglink text {
+    /*font-family: "Courier New";*/
+    font-size: 14px;
+    /*font-weight: bold;*/
+    fill: red;
+}
+
+.histogram rect {
+    /*fill: steelblue;*/
+}
+
+.histogram text {
+    font: 10px sans-serif;
+    text-anchor: middle;
+}
+
+body {
+    overflow: auto;
+}
+
+/* Tooltip setting */
+/*div.tooltip {*/
+    /*position: absolute;*/
+    /*!*text-align: center;*!*/
+    /*!*width: 100px;*!*/
+    /*!*height: 75px;*!*/
+    /*padding: 1px;*/
+    /*font: 11px sans-serif;*/
+    /*background-color: #c3f1ff;*/
+    /*border: 2px;*/
+    /*border-radius: 1px;*/
+    /*opacity: 0.8;*/
+    /*!*  pointer-events: none;    This line needs to be removed *!*/
+/*}*/
+
+.d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 2px;
+    background: rgba(180, 180, 180, 0.7);
+    color: white;
+    border-radius: 1px;
+    height: 80px;
+}
+
+.d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+}
+
+.d3-tip:after
+{
+    box-sizing: border-box;
+    display: inline;
+    font-size: 14px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(195, 241, 255, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+}
+
+.d3-tip-btn{
+    cursor: pointer;
+}
+
+
+.button {
+    width: 100%;
+    color:   black;
+    border:  none;
+    display: block;
+    font-size:  14px;
+    text-align: left;
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.button:hover{
+    text-decoration: none;
+    color:   black;
+}

@@ -1,0 +1,204 @@
+#vis-3d-new {
+  width: 100%;
+  height: 340px;
+}
+
+#vis-attr {
+  height: 120px;
+}
+
+#canvas-pg {
+  height: 375px;
+}
+
+#videos .row {
+  margin: 3px 15px 0 15px;
+}
+
+.video-div {
+  padding: 0 2px;
+}
+
+#objects-pool2 {
+  padding-top: 5px;
+}
+
+.panel-body .panel {
+  margin-bottom: 0;
+}
+
+#create-obj-tab,
+#create-query-tab,
+#visualization-tab,
+#query-test-tab {
+  margin-top: 20px;
+}
+
+#anno-point {
+  display: none;
+}
+
+#objects-dropdown-1,
+#objects-dropdown-2 {
+  display: inline-block;
+}
+
+.modal-lg {
+  width: 800px;
+}
+
+.modal-body .row {
+  margin: 3px 0;
+}
+
+.video-anno {
+  width: 738px;
+}
+
+.select-graph-span {
+  margin: 0 2px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+#q-type-radios .radio {
+  display: inline-block;
+}
+
+#history-pool {
+  height: 270px;
+  overflow: scroll;
+}
+
+#history-pool p {
+  max-width: 500px;
+}
+
+.history-entry {
+  width: auto;
+  padding: 5px;
+  margin: 5px 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.history-entry-q {
+  float: left;
+  clear: both;
+  background-color: #77BAE3;
+}
+
+.history-entry-a {
+  float: right;
+  clear: both;
+  background-color: #B6DAF0;
+}
+
+.history-entry-e {
+  float: right;
+  clear: both;
+  background-color: #ffcccc;
+}
+
+.history-entry-q-exp {
+  background-color: #BAE377;
+}
+
+.history-entry-a-exp {
+  background-color: #DAF0B6;
+}
+
+#q-q {
+  display: none;
+}
+
+#cq-body .row {
+  margin-bottom: 3px;
+}
+
+#visualization-tab img {
+  margin-top: 30px;
+  width: 100%;
+}
+
+#vis-3d {
+  min-height: 330px;
+}
+
+.node {
+  stroke: #fff;
+  stroke-width: 2px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+#q-clear {
+  float: right;
+  top: 4px;
+  opacity: 0.6;
+  cursor: pointer;
+}
+#q-clear:hover {
+  opacity: 1;
+}
+
+#p-time-range {
+  display: none;
+}
+
+.rowt {
+  margin-top: 10px;
+}
+
+#q-preview-well{
+  margin-bottom: 10px;
+  padding: 8px 14px;
+}
+
+.monospace{
+  font-family: monospace;
+}
+
+.nav-logo{
+  height: 50px;
+  margin: 0 5px;
+}
+
+.nstSlider .leftGrip.gripHighlighted,
+.nstSlider .rightGrip.gripHighlighted {
+  background-color: #fff;
+}
+
+#darpa-logo {
+  margin-top: 50px;
+}
+
+#darpa-logo img {
+  position: absolute;
+  right: 0;
+  float: left;
+}
+
+#canvas-aog {
+  border: 1px solid;
+  width:450px;
+  height: 400px;
+  align-self: center;
+}
+
+#canvas-aog-BinA {
+  border: 1px solid;
+  width:450px;
+  height: 300px;
+  align-self: center;
+}
+#canvas-aog-XAOG {
+  border: 1px solid;
+  width:900px;
+  height: 400px;
+  align-self: center;
+}
+

@@ -1,0 +1,330 @@
+<html>
+<head>
+	<title>Testing Phase</title>
+<link rel="stylesheet" href="static/css/explanation_evaluator_style.css" />
+</head>
+
+<header>
+   <div style="color:black; text-align:center; font-size:250%;">Testing Phase</div>
+</header>
+
+<body>
+<br /><br />
+  <!-- <a href="test.html"><button class="btn" style="position: absolute; left: 5%;">Back</button></a> -->
+<br /><br />
+
+<div class=form>
+<form id="testForm>">
+
+<img id="questionImg" src="static/img/la6_test/1.PNG" style="height:48%; left: 300;">
+
+<br><br>
+
+<div class="tab">Which of the following best describes you?
+   <p><input type="radio" name="q19" value="Male"> Male</p>
+  <p><input type="radio" name="q19" value="Female"> Female</p>
+  <p><input type="radio" name="q19" value="Other"> Other</p>
+</div>
+
+<!-- One "tab" for each step in the form: -->
+ <!-- <div class="tab">Please enter the assigned user id (contact experiment instructor to get userid):<br> -->
+  <input type="hidden" name="q0" id="q0" value="la6qa1" style="width:200px; height:50px;">
+<!-- </div> -->
+
+<div class="tab">Q1: Did you understand the material shown to you in the familiarization phase?
+  <p><input type="checkbox" name="q1" value="a"> Yes I understood all the material</p>
+  <p><input type="checkbox" name="q1" value="b"> I understood most of the material </p>
+  <p><input type="checkbox" name="q1" value="c"> I did not understand most of it </p>
+  <p><input type="checkbox" name="q1" value="d"> I did not understand any of the material</p>
+  
+</div>
+ 
+<div class="tab">Q2: For which of the above four images (Ia, Ib, Ic, Id) the Machine can correctly detect left arm of the person (select all that apply)?
+  <p><input type="checkbox" name="q2" value="a"> Ia </p>
+  <p><input type="checkbox" name="q2" value="b"> Ib </p>
+  <p><input type="checkbox" name="q2" value="c"> Ic </p>
+  <p><input type="checkbox" name="q2" value="d"> Id </p>
+  How confident are you with this answer? (1 being least confident, 9 being most confident)
+  <select id="c2">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+  </select>
+</div>
+
+<div class="tab">Q3: Let's say that the Machine can correctly detect Left Arm of the person in the above image. Which body parts are most influential for the Machine to detect left arm correctly (select all that apply)?
+ <p><input type="checkbox" name="q3" value="a"> Neck</p>
+  <p><input type="checkbox" name="q3" value="b"> Right Arm</p>
+  <p><input type="checkbox" name="q3" value="c"> Right Leg</p>
+  <p><input type="checkbox" name="q3" value="d"> Face</p>
+  How confident are you with this answer? (1 being least confident, 9 being most confident)
+  <select id="c3">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+  </select>
+</div>
+
+<div class="tab">Q4: Let's say that the Machine fails to detect Left Arm of the person in the above image, incorrect detection of which body part is the main cause for the Machine to incorrectly detect left arm (select all that apply)?
+  <p><input type="checkbox" name="q4" value="a"> Torso</p>
+  <p><input type="checkbox" name="q4" value="b"> Right Arm</p>
+  <p><input type="checkbox" name="q4" value="c"> Right Leg</p>
+  <p><input type="checkbox" name="q4" value="d"> Face</p>
+  How confident are you with this answer? (1 being least confident, 9 being most confident)
+  <select id="c4">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+  </select>
+</div>
+<!-- 
+<div class="tab">Q5: Order the bubbles based on how influential they are for Machine to correctly detect Left Arm.
+  <p><input type="checkbox" name="q5" value="a"> (a)</p>
+  <p><input type="checkbox" name="q5" value="b"> (b)</p>
+  <p><input type="checkbox" name="q5" value="c"> (c)</p>
+  <p><input type="checkbox" name="q5" value="d"> (d)</p>
+  How confident are you with this answer? (1 being least confident, 9 being most confident)
+  <select id="c5">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+  </select>
+</div>
+ -->
+
+
+
+<div class="tab">Q5: Select the body parts which you think the Machine can correctly identify in the above image (select all that apply).
+ <p><input type="checkbox" name="q6" value="a"> Left Arm </p>
+  <p><input type="checkbox" name="q6" value="b"> Right arm</p>
+  <p><input type="checkbox" name="q6" value="c"> Face</p>
+  <p><input type="checkbox" name="q6" value="d"> None</p>
+  How confident are you with this answer? (1 being least confident, 9 being most confident)
+  <select id="c6">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+  </select>
+</div>
+
+<div class="tab">Q6: Select the body parts which you think the Machine will fail to correctly identify in the above image (select all that apply).
+ <p><input type="checkbox" name="q7" value="a"> Head </p>
+  <p><input type="checkbox" name="q7" value="b"> Right arm</p>
+  <p><input type="checkbox" name="q7" value="c"> Face</p>
+  <p><input type="checkbox" name="q7" value="d"> Left Arm</p>
+  How confident are you with this answer? (1 being least confident, 9 being most confident)
+  <select id="c7">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+  </select>
+</div>
+
+<div class="tab">Q7: How <b> useful </b> is the familiarization phase for answering questions in the Testing phase (in terms helping you to analyze how the Machine detects Left Arm)? (1 being least useful, 9 being most useful)
+   <p><input type="radio" name="q8" value="1"> 1</p>
+  <p><input type="radio" name="q8" value="2"> 2</p>
+  <p><input type="radio" name="q8" value="3"> 3</p>
+  <p><input type="radio" name="q8" value="4"> 4</p>
+  <p><input type="radio" name="q8" value="5"> 5</p>
+  <p><input type="radio" name="q8" value="6"> 6</p>
+  <p><input type="radio" name="q8" value="7"> 7</p>
+  <p><input type="radio" name="q8" value="8"> 8</p>
+  <p><input type="radio" name="q8" value="9"> 9</p>
+</div>
+
+<div class="tab">Q8: Do you feel that examples shown in the familiarization phase are <b>sufficient</b> for answering questions in the Testing phase (in terms helping you to analyze how the Machine detects Left Arm)? (1 being not at all SUFFICIENT, 9 being very SUFFICIENT)
+     <p><input type="radio" name="q9" value="1"> 1</p>
+  <p><input type="radio" name="q9" value="2"> 2</p>
+  <p><input type="radio" name="q9" value="3"> 3</p>
+  <p><input type="radio" name="q9" value="4"> 4</p>
+  <p><input type="radio" name="q9" value="5"> 5</p>
+  <p><input type="radio" name="q9" value="6"> 6</p>
+  <p><input type="radio" name="q9" value="7"> 7</p>
+  <p><input type="radio" name="q9" value="8"> 8</p>
+  <p><input type="radio" name="q9" value="9"> 9</p>
+</div>
+
+<div class="tab">Q9: How <b>detailed</b> are the examples in the familiarization phase in terms of helping you to answer questions in the Testing phase? (1 being least detailed, 9 being very detailed)
+     <p><input type="radio" name="q10" value="1"> 1</p>
+  <p><input type="radio" name="q10" value="2"> 2</p>
+  <p><input type="radio" name="q10" value="3"> 3</p>
+  <p><input type="radio" name="q10" value="4"> 4</p>
+  <p><input type="radio" name="q10" value="5"> 5</p>
+  <p><input type="radio" name="q10" value="6"> 6</p>
+  <p><input type="radio" name="q10" value="7"> 7</p>
+  <p><input type="radio" name="q10" value="8"> 8</p>
+  <p><input type="radio" name="q10" value="9"> 9</p>
+  
+</div>
+
+
+<div class="tab">Q10: Overall, how <b>confident</b> were you in answering questions in the Testing phase? (1 being least confident, 9 being very confident)
+     <p><input type="radio" name="q11" value="1"> 1</p>
+  <p><input type="radio" name="q11" value="2"> 2</p>
+  <p><input type="radio" name="q11" value="3"> 3</p>
+  <p><input type="radio" name="q11" value="4"> 4</p>
+  <p><input type="radio" name="q11" value="5"> 5</p>
+  <p><input type="radio" name="q11" value="6"> 6</p>
+  <p><input type="radio" name="q11" value="7"> 7</p>
+  <p><input type="radio" name="q11" value="8"> 8</p>
+  <p><input type="radio" name="q11" value="9"> 9</p>
+  
+</div>
+
+
+<div class="tab">Q11: How <b>easy it is to follow</b> examples shown in the familiarization phase? (1 being too difficult, 9 being very easy)
+     <p><input type="radio" name="q12" value="1"> 1</p>
+  <p><input type="radio" name="q12" value="2"> 2</p>
+  <p><input type="radio" name="q12" value="3"> 3</p>
+  <p><input type="radio" name="q12" value="4"> 4</p>
+  <p><input type="radio" name="q12" value="5"> 5</p>
+  <p><input type="radio" name="q12" value="6"> 6</p>
+  <p><input type="radio" name="q12" value="7"> 7</p>
+  <p><input type="radio" name="q12" value="8"> 8</p>
+  <p><input type="radio" name="q12" value="9"> 9</p>
+  
+</div>
+
+<div class="tab">Q12: Is the familiarization phase, <b>too hard</b> for you to understand? (1 being too easy, 9 being very hard)
+     <p><input type="radio" name="q13" value="1"> 1</p>
+  <p><input type="radio" name="q13" value="2"> 2</p>
+  <p><input type="radio" name="q13" value="3"> 3</p>
+  <p><input type="radio" name="q13" value="4"> 4</p>
+  <p><input type="radio" name="q13" value="5"> 5</p>
+  <p><input type="radio" name="q13" value="6"> 6</p>
+  <p><input type="radio" name="q13" value="7"> 7</p>
+  <p><input type="radio" name="q13" value="8"> 8</p>
+  <p><input type="radio" name="q13" value="9"> 9</p>
+</div>
+
+<div class="tab">Q13: Are the examples, provided to you in familiarization phase, <b>accurate</b>? (1 being not at all accurate, 9 being very accurate)
+     <p><input type="radio" name="q14" value="1"> 1</p>
+  <p><input type="radio" name="q14" value="2"> 2</p>
+  <p><input type="radio" name="q14" value="3"> 3</p>
+  <p><input type="radio" name="q14" value="4"> 4</p>
+  <p><input type="radio" name="q14" value="5"> 5</p>
+  <p><input type="radio" name="q14" value="6"> 6</p>
+  <p><input type="radio" name="q14" value="7"> 7</p>
+  <p><input type="radio" name="q14" value="8"> 8</p>
+  <p><input type="radio" name="q14" value="9"> 9</p>
+
+</div>
+
+<div class="tab">Q14: Are the examples, provided to you in the familiarization phase, <b>consistent</b>? (1 being not at all consistent, 9 being very consistent)
+     <p><input type="radio" name="q15" value="1"> 1</p>
+  <p><input type="radio" name="q15" value="2"> 2</p>
+  <p><input type="radio" name="q15" value="3"> 3</p>
+  <p><input type="radio" name="q15" value="4"> 4</p>
+  <p><input type="radio" name="q15" value="5"> 5</p>
+  <p><input type="radio" name="q15" value="6"> 6</p>
+  <p><input type="radio" name="q15" value="7"> 7</p>
+  <p><input type="radio" name="q15" value="8"> 8</p>
+  <p><input type="radio" name="q15" value="9"> 9</p>
+</div>
+
+
+<div class="tab">Q15: In what percentage of images do you estimate the Machine can correctly detect the Left Arm?  
+     <p><input type="radio" name="q16" value="10"> 10%</p>
+  <p><input type="radio" name="q16" value="20"> 20%</p>
+  <p><input type="radio" name="q16" value="30"> 30%</p>
+  <p><input type="radio" name="q16" value="40"> 40%</p>
+  <p><input type="radio" name="q16" value="50"> 50%</p>
+  <p><input type="radio" name="q16" value="60"> 60%</p>
+  <p><input type="radio" name="q16" value="70"> 70%</p>
+  <p><input type="radio" name="q16" value="80"> 80%</p>
+  <p><input type="radio" name="q16" value="90"> 90%</p>
+  <p><input type="radio" name="q16" value="100"> 100%</p>
+  
+</div>
+
+<div class="tab">Q16: Given a new image, how confidently you can guess whether if the Machine is going to correctly/incorrectly detect Left Arm? (1 being least confidence, 9 being highly confident)
+   <p><input type="radio" name="q17" value="1"> 1</p>
+  <p><input type="radio" name="q17" value="2"> 2</p>
+  <p><input type="radio" name="q17" value="3"> 3</p>
+  <p><input type="radio" name="q17" value="4"> 4</p>
+  <p><input type="radio" name="q17" value="5"> 5</p>
+  <p><input type="radio" name="q17" value="6"> 6</p>
+  <p><input type="radio" name="q17" value="7"> 7</p>
+  <p><input type="radio" name="q17" value="8"> 8</p>
+  <p><input type="radio" name="q17" value="9"> 9</p>
+</div>
+
+
+<div class="tab">Q17: To what extent do you <b>trust/believe</b> in the Machine's detection of Left Arm? 
+   <p><input type="radio" name="q18" value="10"> 10%</p>
+  <p><input type="radio" name="q18" value="20"> 20%</p>
+  <p><input type="radio" name="q18" value="30"> 30%</p>
+  <p><input type="radio" name="q18" value="40"> 40%</p>
+  <p><input type="radio" name="q18" value="50"> 50%</p>
+  <p><input type="radio" name="q18" value="60"> 60%</p>
+  <p><input type="radio" name="q18" value="70"> 70%</p>
+  <p><input type="radio" name="q18" value="80"> 80%</p>
+  <p><input type="radio" name="q18" value="90"> 90%</p>
+  <p><input type="radio" name="q18" value="100"> 100%</p>
+</div>
+
+
+<!-- <div class="tab">Q19: Finally, Can you write down some rules/heuristics/cases where machine <b>correctly</b> identifies Left Arm? 
+  <textarea name="text" name="q19" id="q19" rows="20" cols="80" wrap="soft"> </textarea>
+   <input type="text" name="q19" id="q19" style="width:600px; height:200px;font-size:14pt;"> 
+</div>
+
+<div class="tab">Q20: Finally, Can you write down some rules/heuristics/cases where machine <b>incorrectly</b> identifies Left Arm? 
+  <textarea name="text" name="q20" id="q20" rows="20" cols="80" wrap="soft"> </textarea>
+   <input type="text" name="q20" id="q20" style="width:600px; height:200px;font-size:14pt;"> 
+</div> -->
+
+</div>
+
+
+
+<div style="overflow:auto;">
+  <div style="float:right;">
+    <button class="btn" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+    <button class="btn" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+  </div>
+</div>
+</form>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script src="https://oss.maxcdn.com/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="static/js/form.js"></script>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head >
+<link rel="stylesheet" href="static/css/form.css" />
+<meta charset="UTF-8">
+<title>eXplainable Artificial Intelligence (XAI), VCLA</title>
+<link rel="stylesheet" href="https://oss.maxcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://oss.maxcdn.com/videojs/5.4.6/video-js.min.css">
+<link rel="stylesheet" href="https://oss.maxcdn.com/jquery.jcrop/0.9.12/css/jquery.Jcrop.min.css">
+<link rel="stylesheet" href="static/css/jquery.nstSlider.min.css">
+<link rel="stylesheet" href="static/css/msee-demo.css">
+<link rel="stylesheet" href="static/css/main.css">
+<link rel="stylesheet" href="static/css/pgRender.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://oss.maxcdn.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://oss.maxcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://oss.maxcdn.com/videojs/5.4.6/video.min.js"></script>
+<script src="https://oss.maxcdn.com/jquery.jcrop/0.9.12/js/jquery.Jcrop.min.js"></script>
+<script src="https://oss.maxcdn.com/threejs/0.0.0-r73/three.min.js"></script>
+<script src="https://oss.maxcdn.com/d3js/3.5.14/d3.min.js"></script>
+<script src="static/js/OrbitControls.js"></script>
+<script src="static/js/jquery.nstSlider.min.js"></script>
+<script src="static/js/msee-demo.js"></script>
+<script src="static/js/mseevis3d.js"></script>
+
+<script src="static/js/msee-pg.js"></script>
+<script type="text/javascript" src="static/js/3rdparty/d3.v3.min.js"></script>
+<script type="text/javascript" src="static/js/3rdparty/d3-tip.min.js"></script>
+<script type="text/javascript" src="static/js/3rdparty/dotgraph.js"></script>
+<script type="text/javascript" src="static/js/3rdparty/dotparser.js"></script>
+<script type="text/javascript" src="static/js/parsegraph/jgraph.js"></script>
+<script type="text/javascript" src="static/js/parsegraph/visualizer.js"></script>
+<script type="text/javascript" src="static/js/renderpg.js"></script>
+<!--     <script type="text/javascript" src="lib/utils/simpleheat.js"></script>
+<script type="text/javascript" src="lib/utils/heatmap.min.js"></script>
+<script type="text/javascript" src="public/javascripts/utils.js"></script>
+<link type="text/css" rel="stylesheet" href="public/stylesheets/style.css">
+    <script src="static/js/main.js"></script> -->
+<title>X-ToM</title>
+</head>
+<body>
+  <div class="row">
+    <div class="column">
+      <div class="panel-body" id="panel-answer-graph">
+        <div class="row" style="margin-left:20px;">
+          <div class="col-md-8">
+            <div id="hm-pg-img" style="position: absolute;">
+              <img></img>
+            </div class="floating">
+              <p style="font-size:20px;"> 
+                <b>Pg(M)</b>
+              </p>
+              <div id="canvas-aog"></div>
+            </div>
+            </div>
+
+        <div class="row" style="margin-left:20px;">
+          <div class="col-md-4" >
+            <div id="hm-pg-img" style="position: absolute;">
+              <img></img>
+            </div class="floating"> 
+              <p style="font-size:20px;"> 
+                <b>Pg(UinM)</b>
+              </p>
+              <div id="canvas-aog-BinA"></div>
+            </div>
+        </div>
+      </div>  
+
+      <div class="panel-body" id="panel-answer-graph">
+        <div class="row" style="margin-left:40px;">
+          <div class="col-md-4">
+            <div id="hm-pg-img" style="position: absolute;">
+              <img></img>
+            </div class="floating"> 
+              <p style="font-size:20px;"> 
+                <b>X-AOG</b>
+              </p>
+              <div id="canvas-aog-XAOG"></div>
+            </div>
+        </div>
+      </div> 
+
+      <script type="text/javascript">
+
+	var set = 0
+	var min1 = ""
+	
+          function render(choice) {
+              $.ajax({
+                url: choice,
+                dataType: "text",
+                success: function(data) {
+                    var json = $.parseJSON(data);
+                    explanationAOG = json.explanationAOG
+                    
+                    explanationAinB = json.explanationAinB
+                    explanationXAOG = json.explanationXAOG
+                    renderParseGraph(explanationAOG, explanationAinB, explanationXAOG);
+                }
+            });
+          }
+
+       function renderImage(choice, parent, unhide) {
+         $.ajax({
+                url: choice,
+                contentType: "image/png",
+                // async: true,
+                // crossDomain: 'true',
+          success: function(data, status) {
+
+	             var x = document.getElementById(unhide);
+	 
+                    if (x.style.display === "none")
+                    {
+                      x.style.display = "block";
+
+                    }
+	 
+                    var image = document.createElement("img");
+                    image.src = choice
+                    image.style.display = "block";
+                    //image.style.marginLeft = "1100px";
+                    image.style.marginLeft = "900px";
+                    parentEle = document.getElementById(parent);
+          parentEle.appendChild(image);
+	 
+                  
+                },
+                error: function(error, txtStatus) {
+                  console.log("error! " + txtStatus);
+                }
+        });
+      }    
+          function generateNewElement(num) {
+            var sel = document.getElementById('select' + (num - 1));
+
+            if (num > 1) {
+          window.selectedIdxes.push(sel.value)
+	  
+          }
+	 
+              $.ajax({
+                url: "questionSet.txt",
+                dataType: "text",
+                success: function(data) {
+                    var questionSet = $.parseJSON(data);
+                    optionSection = "<option value='question'>Choose an action</option>"; args = ""
+	  
+	var t=0;
+	var k=0;
+	
+
+        for (var key in questionSet) {
+
+
+	if(!selectedIdxes.includes(key) && t==0)
+	{
+	min1=key;
+	t=1;
+	}
+
+
+	          	   if(set == 1){
+	                      window.selectedIdxes.push(min1)
+	                      set=0
+	}
+                    if (!selectedIdxes.includes(key)) {
+	                  
+	                   
+                        optionSection += '<option value="' + key + '">' + questionSet[key] + '</option>'
+	                
+        }
+		t=0;
+        }
+
+	  
+                    preForm = $("#hidform" + (num - 1))
+                    newForm = $("<div></div>")
+                    newForm.html ('<div  id="' + "hidform" + (num) + '" style="text-align: right; display:none;">' + 
+          '<form">  \
+          <select id="select' + num + '" name="Choose an action" style="background-color:#EAFAF1; text-align-last:center; font-size:140%; margin-right: 80px;" onchange="change(this)">' + optionSection + '<option value="explain">User: Explain more</option> \
+          <option value="solve">Solve Task</option>' + 
+          '</select></form><br></div>')
+          newForm.insertAfter(preForm)
+
+	     if (num == 1)  {
+                      console.log(num);
+                      args = "putpicTakeArg(key,'walk_explanation" + num + ".txt', 'walk_demo" + (num) + ".png', 'hidform" + num + "', 'hidform" + (num + 1) + "', " + (num + 1) + ")" 
+                    }
+
+                 
+                
+         }
+});
+}
+
+	  
+
+          render("walk_explanation0.txt");
+
+         window.selectedIdxes = []
+        $(window).scroll(function(){
+          $( ".floating" ).each(function() {
+                if($(window).scrollTop() > $( this ).offset().top) {
+                      $( this ).css('position','fixed').css('top','0')
+                } else {
+                    $( this ).css('position','static')
+                }  
+              })
+        });  
+
+        //var elementPosition = $('#canvas-aog-BinA').offset();
+        // $(window).scroll(function(){
+        //         if($(window).scrollTop() > elementPosition.top){
+        //               $('#canvas-aog-BinA').css('position','fixed').css('top','0');
+        //         } else {
+        //             $('#canvas-aog-BinA').css('position','static');
+        //         }    
+        // });
+        // var elementPosition = $('#canvas-aog-XAOG').offset();
+
+        // $(window).scroll(function(){
+        //         if($(window).scrollTop() > elementPosition.top){
+        //               $('#canvas-aog-XAOG').css('position','fixed').css('top','500px');
+        //         } else {
+        //             $('#canvas-aog-XAOG').css('position','static');
+        //         }    
+        // });  
+        </script>
+ </div id="allForms">
+    <header>
+      <!-- <h1 style="color:#ffa500; text-align:left; font-size:400%; top:0;">X-ToM</h1> -->
+      <p style="color:green; margin-right:30px; text-align:right; font-size:20px; top:0;">Anonymous User1</p>
+      <h2 style="color:#DC7633; text-align:center; font-size:300%;">X-ToM Online Demo</h1>
+    </header>
+
+    <div  id="hidform0">
+      <form style="text-align-last:center;">
+        <select id = "select0" name="Choose1" style="background-color:#EAFAF1; text-align-last:center; font-size:210%;" onchange="if (this.selectedIndex) putpic();">
+          <option value="choose" selected="selected">Select Task</option>
+          <option value="action">Is the person walking or running?</option>
+          <option value="sex">Is the person male or female?</option>
+          <option value="smile">Is the person smiling or crying?</option>
+          <option value="action2">Is the person writing or eating?</option>
+          <option value="action3">Is the person pointing or standing?</option>
+        </select>
+      </form>
+      <br>
+    </div>
+
+<!--     <div id="hidform3" style="text-align: right; display:none;">
+      <form>
+        <select id="choose" name="Choose an action" style="background-color:green; text-align-last:center; font-size:140%;" onchange="change()">
+          <option value="choose" selected="selected">Actions</option>
+          <option value="question">Explain more</option>
+          <option value="solve">Solve Task</option>
+        </select>
+      </form>
+    </div> -->
+
+<div id="hidform6" style="background-color:#A9DFBF; font-size:30px;  text-align:left;  display:none; margin: 3% 2% 0% 60%;">
+      <p>Is the person running or walking?</p>
+      <form style="text-align: right">
+        <input type="radio"  style="font-size:20px"; name="same" value="Walking" onclick="showf()"> Walking
+        <input type="radio"  style="font-size:20px"; name="same" value="Running" onclick="showf1()"> Running<br>
+      </form>
+    </div>
+    <br>
+    <div id="last" style="text-align:right; display:none;">
+      <p style="text-align:center; font-size:20%;"> Result: </p>
+      <button style="position: relative; margin-right: 50px; font-size:20px; background-color:#A9DFBF;">CORRECT</button><br/>
+      <button style="position: relative; margin-top:10px; margin-right: 50px; font-size:20px; background-color:#DC7633" onclick="newf()">Solve a New Task</button>
+    </div>
+
+     <div id="last1" style="text-align:right; display:none;">
+      <p style="text-align:center; font-size:20%;"> Result: </p>
+      <button style="position: relative; margin-righ2: 50px; font-size:20px; background-color:red;">INCORRECT</button><br/>
+      <button style="position: relative; margin-top:10px; margin-right: 50px; font-size:20px; background-color:#DC7633" onclick="newf()">Solve a New Task</button>
+    </div>
+</div>
+</body>
+  <script>
+
+    var global = "";
+    var ctr = 2;
+    var done = []
+
+    function putpic()
+    {
+        generateNewElement(1)
+        renderImage("walk_demo0.png", "hidform0", "hidform1")
+        
+    }
+
+
+    function change(selectObj)
+    {
+       var x1 = selectObj.value;
+       var y = 1;
+     
+       console.log(x1);
+       if(x1=="solve") 
+           putpic3();
+       else 
+          {
+             if(x1=="explain")
+               {
+                  if(done.length == 0)
+                      x1 = 1;
+                  else {
+                    while(done.includes(y))
+                       y=y+1;
+                       
+                       x1=y;
+                       }
+                  set=1;
+               }
+            
+             var x2 = parseInt(x1, 10);
+             var y1 = ctr - 1;
+             generateNewElement(ctr);
+            
+          
+             renderImage("walk_demo" + x1 + ".png", "hidform" + y1 + "", "hidform" + ctr + "")
+             render("walk_explanation" + x1 + ".txt")
+             global+=x1
+             ctr = ctr + 1;
+           
+          }
+
+      done.push(x2);
+      console.log(done)           
+    }
+
+     function change2()
+    {
+      var y=1
+       var x1 = document.getElementById("select2").value;
+     
+       console.log(x1);
+       if(x1=="solve") 
+           putpic3();
+       else 
+           {
+              if(x1=="explain")
+               {
+                  while(done.includes(y))
+                      y=y+1;
+                  
+                  x1=y;
+                  set=1;
+               }
+             console.log("sf")
+             console.log(x1)
+             console.log(y)
+             generateNewElement(3)
+             renderImage("walk_demo" + x1 + ".png", "hidform2", "hidform3")
+             render("walk_explanation" + x1 + ".txt")
+             global+=x1
+             console.log(global)
+          }
+
+      done.push(x1);
+           
+    }
+
+     function change3()
+    {
+       var x1 = document.getElementById("select3").value;
+     
+       console.log(x1);
+       if(x1=="solve") 
+           putpic3();
+       else 
+            {
+             generateNewElement(4)
+             renderImage("walk_demo" + x1 + ".png", "hidform3", "hidform4")
+             render("walk_explanation" + x1 + ".txt")
+             global+=x1
+            }
+           
+    }
+    
+     function change4()
+    {
+       var x1 = document.getElementById("select4").value;
+     
+       console.log(x1);
+       if(x1=="solve") 
+           putpic3();
+       else 
+            {
+             generateNewElement(5)
+             renderImage("walk_demo" + x1 + ".png", "hidform4", "hidform5")
+              render("walk_explanation" + x1 + ".txt")
+              global+=x1
+            }
+           
+    }
+
+    function putpicTakeArg(key, explanation, image, hidForm, displayForm, num)
+    {
+
+      render(explanation)
+      generateNewElement(num)
+    
+      console.log(key)   
+
+ }
+
+
+    function putpic3()
+    {
+      var z = document.getElementById("hidform6");
+      if (z.style.display === "none")
+      {
+        z.style.display = "block";
+      }
+      // render("walk_explanation4.txt");
+    }
+
+    function showf()
+    {
+      renderImage("walk_demo5.png", "last", "last")
+    
+    }
+
+     function showf1()
+    {
+
+      renderImage("walk_demo5.png", "last1", "last1")
+    
+    }
+
+    function newf()
+    {
+      location.href = "test4.html";
+      document.getElementById("demo").style.color = "red";
+    }
+  </script>
+</html>

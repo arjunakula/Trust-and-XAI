@@ -1,0 +1,49 @@
+.btn {
+    background-color: white; /* Green */
+    color: black;
+    padding: 5px 12px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 150%;
+    display: inline-block;
+    width: 200px;
+    height:100px;
+}
+
+.footer{
+       position: fixed;
+       text-align: center;
+       bottom: 0;
+       width: 100%;
+       font-size: 20px;
+     }
+
+.reg{
+    width: 300px;
+    border: 5px solid black;
+    padding: 20px;
+    margin: 0px;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.hid{
+  position: relative;
+  top: 10px;
+
+}
+
+img {
+  width: 400px;
+  height: 300px;
+}

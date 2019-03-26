@@ -1,0 +1,145 @@
+<html>
+<head>
+	<title>Results</title>
+<link rel="stylesheet" href="static/css/explanation_evaluator_style.css" />
+<script type="text/javascript" src="static/js/graph.js"></script>
+</head>
+
+<header>
+   <div style="color:black; text-align:center; font-size:250%;">Evaluator Results</div>
+</header>
+
+<body>
+<br /><br />
+  <a href="evaluator.html"><button class="btn" style="position: absolute; left: 10%;">Back</button></a>
+  <button class="btn" style="position: absolute; right: 10%;" onClick="(function(){
+      sessionStorage.removeItem('wo_explanation_answers');
+      sessionStorage.removeItem('attention_maps_answers');
+      sessionStorage.removeItem('x-tom_answers');
+      window.location.replace('evaluator_results.html');
+    })();">Reset</button>
+<br /><br /><br /><br />
+<h3 class ="table_titles">No Explanation</h3>
+<table class="result_table" style="width:50%; text-align: center;">
+  <tr>
+    <th>Question</th>
+    <th>Answer</th> 
+  </tr>
+  <tr>
+    <td>Question 1</td>
+    <td id="a1">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 2</td>
+    <td id="a2">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 3</td>
+    <td id="a3">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 4</td>
+    <td id="a4">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 5</td>
+    <td id="a5">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 6</td>
+    <td id="a6">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 7</td>
+    <td id="a7">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 8</td>
+    <td id="a8">N/A</td> 
+  </tr>
+</table>
+
+<h3 class ="table_titles">Attention Maps as Explanation</h3>
+<table class="result_table" style="width:50%; text-align: center;">
+  <tr>
+    <th>Question</th>
+    <th>Answer</th> 
+  </tr>
+  <tr>
+    <td>Question 1</td>
+    <td id="b1">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 2</td>
+    <td id="b2">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 3</td>
+    <td id="b3">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 4</td>
+    <td id="b4">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 5</td>
+    <td id="b5">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 6</td>
+    <td id="b6">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 7</td>
+    <td id="b7">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 8</td>
+    <td id="b8">N/A</td> 
+  </tr>
+</table>
+
+<h3 class ="table_titles">X-ToM</h3>
+<table class="result_table" style="width:50%; text-align: center;">
+  <tr>
+    <th>Question</th>
+    <th>Answer</th> 
+  </tr>
+  <tr>
+    <td>Question 1</td>
+    <td id="c1">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 2</td>
+    <td id="c2">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 3</td>
+    <td id="c3">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 4</td>
+    <td id="c4">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 5</td>
+    <td id="c5">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 6</td>
+    <td id="c6">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 7</td>
+    <td id="c7">N/A</td> 
+  </tr>
+  <tr>
+    <td>Question 8</td>
+    <td id="c8">N/A</td> 
+  </tr>
+</table>
+<br/><br/>
+<canvas id="myChart" width="400" height="200"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+</body>
+</html>

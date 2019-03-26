@@ -1,0 +1,109 @@
+{
+  "garden": {
+    "cam": {
+      "fov": 55,
+      "near": 2,
+      "far": 1000000,
+      "x": 50,
+      "y": 20,
+      "z": 80
+    },
+    "fps": 29.97,
+    "poseSrc": "/static/data/new/garden_scene_3d-pose_v1.json",
+    "boneRadius": 0.3,
+    "poseBones": [
+      [0, 1, 0],
+      [0, 6, 1],
+      [1, 2, 0], [2, 3, 0],
+      [6, 7, 1], [7, 8, 1],
+      [0, 14, 0],
+      [14, 15, 0],
+      [14, 17, 1],
+      [14, 25, 0],
+      [17, 18, 1], [18, 19, 1],
+      [25, 26, 0], [26, 27, 0]
+    ],
+    "objSrc": "/static/data/garden_obj.json",
+    "bboxSrcs": {
+      "contour2": "/static/data/new/garden_contour2_bbox_v1.json",
+      "hc2": "/static/data/new/garden_hc2_bbox_v1.json",
+      "hc3": "/static/data/new/garden_hc3_bbox_v1.json",
+      "ip1": "/static/data/new/garden_ip1_bbox_v1.json"
+    },
+    "actSrc": "/static/data/new/garden_scene_act_v1.json",
+    "attrSrc": "/static/data/new/garden_scene_attr_v1.json",
+    "pointCloudSrc": "/static/data/new/garden_scene_bg_v1.json",
+    "videoSrc": "/static/video/garden_view-Contour2.mp4"
+  },
+  "auditorium": {
+    "cam": {
+      "fov": 55,
+      "near": 2,
+      "far": 1000000,
+      "x": 0,
+      "y": 0,
+      "z": 80
+    },
+    "fps": 29.97,
+    "poseSrc": "/static/data/new/auditorium_scene_3d-pose_v1.json",
+    "boneRadius": 0.3,
+    "poseBones": [
+      [0, 1, 0],
+      [0, 6, 1],
+      [1, 2, 0], [2, 3, 0],
+      [6, 7, 1], [7, 8, 1],
+      [0, 14, 0],
+      [14, 15, 0],
+      [14, 17, 1],
+      [14, 25, 0],
+      [17, 18, 1], [18, 19, 1],
+      [25, 26, 0], [26, 27, 0]
+    ],
+    "objSrc": "/static/data/audi_obj.json",
+    "bboxSrcs": {
+      "hc3": "/static/data/new/auditorium_hc3_bbox_v1.json",
+      "hc4": "/static/data/new/auditorium_hc4_bbox_v1.json"
+    },
+    "actSrc": "/static/data/new/auditorium_scene_act_v1.json",
+    "attrSrc": "/static/data/new/auditorium_scene_attr_v1.json",
+    "pointCloudSrc": "/static/data/new/auditorium_scene_bg_v1.json",
+    "videoSrc": "/static/video/auditorium_view-HC3.mp4"
+  },
+  "office": {
+    "cam": {
+      "fov": 55,
+      "near": 2,
+      "far": 1000000,
+      "x": 0,
+      "y": 0,
+      "z": 40
+    },
+    "fps": 25,
+    "poseSrc": "/static/data/new/office_scene_3d-pose_v1.json",
+    "boneRadius": 0.4,
+    "poseBones": [
+      [0, 1, 0],
+      [0, 6, 1],
+      [1, 2, 0], [2, 3, 0],
+      [6, 7, 1], [7, 8, 1],
+      [0, 14, 0],
+      [14, 15, 0],
+      [14, 17, 1],
+      [14, 25, 0],
+      [17, 18, 1], [18, 19, 1],
+      [25, 26, 0], [26, 27, 0]
+    ],
+    "objSrc": "/static/data/office_obj.json",
+    "obj3dSrc": "/static/data/office_3d_obj.json",
+    "obj3dMatSrc": "/static/data/office_mat.json",
+    "bboxSrcs": {
+      "cr1": "/static/data/new/office_cr1_bbox_v1.json",
+      "cr3": "/static/data/new/office_cr3_bbox_v1.json"
+    },
+    "actSrc": "/static/data/new/office_scene_act_v1.json",
+    "attrSrc": "/static/data/new/office_scene_attr_v1.json",
+    "pointCloudSrc": "/static/data/new/office_scene_bg_v1.json",
+    "pointSize": 0.6,
+    "videoSrc": "/static/video/office_view-CR3-video_demo.mp4"
+  }
+}

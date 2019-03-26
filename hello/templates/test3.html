@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head >
+<link rel="stylesheet" href="static/css/form.css" />
+<meta charset="UTF-8">
+<title>eXplainable Artificial Intelligence (XAI), VCLA</title>
+<link rel="stylesheet" href="https://oss.maxcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://oss.maxcdn.com/videojs/5.4.6/video-js.min.css">
+<link rel="stylesheet" href="https://oss.maxcdn.com/jquery.jcrop/0.9.12/css/jquery.Jcrop.min.css">
+<link rel="stylesheet" href="static/css/jquery.nstSlider.min.css">
+<link rel="stylesheet" href="static/css/msee-demo.css">
+<link rel="stylesheet" href="static/css/main.css">
+<link rel="stylesheet" href="static/css/pgRender.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://oss.maxcdn.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://oss.maxcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://oss.maxcdn.com/videojs/5.4.6/video.min.js"></script>
+<script src="https://oss.maxcdn.com/jquery.jcrop/0.9.12/js/jquery.Jcrop.min.js"></script>
+<script src="https://oss.maxcdn.com/threejs/0.0.0-r73/three.min.js"></script>
+<script src="https://oss.maxcdn.com/d3js/3.5.14/d3.min.js"></script>
+<script src="static/js/OrbitControls.js"></script>
+<script src="static/js/jquery.nstSlider.min.js"></script>
+<script src="static/js/msee-demo.js"></script>
+<script src="static/js/mseevis3d.js"></script>
+
+<script src="static/js/msee-pg.js"></script>
+<script type="text/javascript" src="static/js/3rdparty/d3.v3.min.js"></script>
+<script type="text/javascript" src="static/js/3rdparty/d3-tip.min.js"></script>
+<script type="text/javascript" src="static/js/3rdparty/dotgraph.js"></script>
+<script type="text/javascript" src="static/js/3rdparty/dotparser.js"></script>
+<script type="text/javascript" src="static/js/parsegraph/jgraph.js"></script>
+<script type="text/javascript" src="static/js/parsegraph/visualizer.js"></script>
+<script type="text/javascript" src="static/js/renderpg.js"></script>
+<!--     <script type="text/javascript" src="lib/utils/simpleheat.js"></script>
+<script type="text/javascript" src="lib/utils/heatmap.min.js"></script>
+<script type="text/javascript" src="public/javascripts/utils.js"></script>
+<link type="text/css" rel="stylesheet" href="public/stylesheets/style.css">
+    <script src="static/js/main.js"></script> -->
+<title>X-ToM</title>
+</head>
+<body>
+  <div class="row">
+    <div class="column">
+      <div class="panel-body" id="panel-answer-graph">
+        <div class="row" style="margin-left:20px;">
+          <div class="col-md-8">
+            <div id="hm-pg-img" style="position: absolute;">
+              <img></img>
+            </div class="floating">
+              <p style="font-size:20px;">
+                <b>Pg(M)</b>
+              </p>
+              <div id="canvas-aog"></div>
+            </div>
+
+          <div class="col-md-4" >
+            <div id="hm-pg-img" style="position: absolute;">
+              <img></img>
+            </div class="floating">
+              <p style="font-size:20px;">
+                <b>Pg(UinM)</b>
+              </p>
+              <div id="canvas-aog-BinA"></div>
+            </div>
+        </div>
+      </div>
+
+      <div class="panel-body" id="panel-answer-graph">
+        <div class="row" style="margin-left:40px;">
+          <div class="col-md-4">
+            <div id="hm-pg-img" style="position: absolute;">
+              <img></img>
+            </div class="floating">
+              <p style="font-size:20px;">
+                <b>X-AOG</b>
+              </p>
+              <div id="canvas-aog-XAOG"></div>
+            </div>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+
+var set = 0
+var min1 = ""
+var task_prefix = "";
+
+function render(choice) {
+  console.log(choice);
+  $.ajax({
+    url: choice,
+    dataType: "text",
+    success: function(data) {
+      var json = $.parseJSON(data);
+      explanationAOG = json.explanationAOG
+
+      explanationAinB = json.explanationAinB
+      explanationXAOG = json.explanationXAOG
+      renderParseGraph(explanationAOG, explanationAinB, explanationXAOG);
+    }
+  });
+}
+
+function renderImage(choice, parent, unhide) {
+  $.ajax({
+    url: choice,
+    contentType: "image/png",
+    // async: true,
+    // crossDomain: 'true',
+    success: function(data, status) {
+
+      var x = document.getElementById(unhide);
+      console.log(x)
+      console.log(unhide)
+
+      if (x.style.display === "none")
+      {
+        x.style.display = "block";
+
+      }
+      var image = document.createElement("img");
+      image.src = choice
+      image.style.display = "block";
+      image.style.marginLeft = "1200px";
+      //image.style.marginLeft = "900px";
+      parentEle = document.getElementById(parent);
+      parentEle.appendChild(image);
+    },
+    error: function(error, txtStatus) {
+      console.log("error! " + txtStatus);
+    }
+  });
+}
+
+function generateNewElement(num, curr, state, hx, cx, f) {
+  var sel = document.getElementById('select' + (num - 1));
+
+  if (num > 1) {
+    var selection = $.parseJSON(sel.value).selection;
+    console.log("ADDING TO SELECTED: " + selection);
+    window.selectedIdxes.push(selection)
+  }
+
+  $.ajax({
+    url: task_prefix + "questionSet.txt",
+    dataType: "text",
+    success: function(data) {
+
+
+      var questionSet = $.parseJSON(data);
+      data_dict = {}
+      console.log(state);
+      console.log(hx);
+      console.log(cx);
+      if (state != null && hx != null && cx != null) {
+        data_dict = {"state": JSON.stringify(state), "hx": JSON.stringify(hx), "cx": JSON.stringify(cx)};
+      }
+      $.ajax({
+          type: "GET",
+          url: "getBestActions",
+          dataType: "json",
+          data: data_dict,
+          success: function(actions){
+              sessionStorage.setItem("current_state", JSON.stringify(actions));
+              optionSection = "<option value='question'>Choose an action</option>"; args = ""
+
+              var t=0;
+              var k=0;
+
+              var last_key = null;
+              var last_idx = null;
+              for (var key in questionSet) {
+                if (actions.hasOwnProperty(key)) {
+                  var img_idx = parseInt(key, 10) + parseInt(curr, 10)
+                  last_key = key;
+                  last_idx = img_idx
+
+                  optionSection += '<option value=\'{"val":"question", "img":"' + img_idx + '", "selection":"' + key + '"}\'>' + questionSet[key] + '</option>'
+
+                }
+                t=0;
+              }
+
+
+              preForm = $("#hidform" + (num - 1))
+              newForm = $("<div></div>")
+              newForm.html ('<div  id="' + "hidform" + (num) + '" style="text-align: right; display:none;">' +
+              '<form">  \
+              <select id="select' + num + '" name="Choose an action" style="background-color:#EAFAF1; text-align-last:center; font-size:140%; margin-right: 80px;" onchange="change(this)">' + optionSection + '<option value=\'{"val":"explain", "img":"' + last_idx + '", "selection":"best"}\'>User: Explain more</option> \
+              <option value=\'{"val":"solve"}\'>Solve Task</option>' +
+              '</select></form><br></div>')
+              newForm.insertAfter(preForm)
+
+              if (num == 1)  {
+                console.log(num);
+                args = "putpicTakeArg(key,'" + task_prefix + "explanation" + (img_idx) + ".txt', '" + task_prefix + "demo" + (img_idx) + ".png', 'hidform" + num + "', 'hidform" + (num + 1) + "', " + (num + 1) + ")"
+              }
+
+              if (f != null){
+                f()
+              }
+          }
+      });
+    }
+  });
+}
+
+
+
+render("explanation0.txt");
+
+window.selectedIdxes = []
+$(window).scroll(function(){
+  $( ".floating" ).each(function() {
+    if($(window).scrollTop() > $( this ).offset().top) {
+      $( this ).css('position','fixed').css('top','0')
+    } else {
+      $( this ).css('position','static')
+    }
+  })
+});
+        </script>
+ </div id="allForms">
+    <header>
+      <!-- <h1 style="color:#ffa500; text-align:left; font-size:400%; top:0;">X-ToM</h1> -->
+      <p style="color:green; margin-right:30px; text-align:right; font-size:20px; top:0;">Anonymous User1</p>
+      <h2 style="color:#DC7633; text-align:center; font-size:300%;">X-ToM Online Demo</h1>
+    </header>
+
+    <div  id="hidform0">
+      <form style="text-align-last:center;">
+        <select id = "select0" name="Choose1" style="background-color:#EAFAF1; text-align-last:center; font-size:210%;" onchange="if (this.selectedIndex) putpic(this);">
+          <option value="choose" selected="selected">Select Task</option>
+          <option value="action">Is the person standing or running?</option>
+          <option value="sex">Is the person male or female?</option>
+          <option value="smile">Is the person smiling or crying?</option>
+          <option value="action2">Is the person writing or eating?</option>
+          <option value="action3">Is the person pointing or standing?</option>
+        </select>
+      </form>
+      <br>
+    </div>
+
+<div id="hidform5" style="background-color:#A9DFBF; font-size:30px;  text-align:left;  display:none; margin: 3% 2% 0% 60%;">
+      <p>Is the person running or standing?</p>
+      <form style="text-align: right">
+        <input type="radio"  style="font-size:20px"; name="same" value="Walking" onclick="showf()"> Standing
+        <input type="radio"  style="font-size:20px"; name="same" value="Running" onclick="showf1()"> Running<br>
+      </form>
+    </div>
+    <br>
+    <div id="last" style="text-align:right; display:none;">
+      <p style="text-align:center; font-size:20%;"> Result: </p>
+      <button style="position: relative; margin-right: 50px; font-size:20px; background-color:#A9DFBF;">CORRECT</button><br/>
+      <button style="position: relative; margin-top:10px; margin-right: 50px; font-size:20px; background-color:#DC7633" onclick="newf()">Solve a New Task</button>
+    </div>
+
+     <div id="last1" style="text-align:right; display:none;">
+      <p style="text-align:center; font-size:20%;"> Result: </p>
+      <button style="position: relative; margin-righ2: 50px; font-size:20px; background-color:red;">INCORRECT</button><br/>
+      <button style="position: relative; margin-top:10px; margin-right: 50px; font-size:20px; background-color:#DC7633" onclick="newf()">Solve a New Task</button>
+    </div>
+</div>
+
+<div id="gender_hidform5" style="background-color:#A9DFBF; font-size:30px;  text-align:left;  display:none; margin: 3% 2% 0% 60%;">
+      <p>Is the person male or female?</p>
+      <form style="text-align: right">
+        <input type="radio"  style="font-size:20px"; name="same" value="Male" onclick="showf()"> Male
+        <input type="radio"  style="font-size:20px"; name="same" value="Female" onclick="showf1()"> Female<br>
+      </form>
+    </div>
+    <br>
+    <div id="gender_last" style="text-align:right; display:none;">
+      <p style="text-align:center; font-size:20%;"> Result: </p>
+      <button style="position: relative; margin-right: 50px; font-size:20px; background-color:#A9DFBF;">CORRECT</button><br/>
+      <button style="position: relative; margin-top:10px; margin-right: 50px; font-size:20px; background-color:#DC7633" onclick="newf()">Solve a New Task</button>
+    </div>
+
+     <div id="gender_last1" style="text-align:right; display:none;">
+      <p style="text-align:center; font-size:20%;"> Result: </p>
+      <button style="position: relative; margin-righ2: 50px; font-size:20px; background-color:red;">INCORRECT</button><br/>
+      <button style="position: relative; margin-top:10px; margin-right: 50px; font-size:20px; background-color:#DC7633" onclick="newf()">Solve a New Task</button>
+    </div>
+</div>
+</body>
+  <script>
+
+    var global = "";
+    var ctr = 2;
+    var done = []
+
+    function putpic(selectObj)
+    {
+        var type = selectObj.value;
+        if (type == "sex") 
+          task_prefix = "gender_";
+
+        generateNewElement(1, 0, null, null, null, function() {renderImage(task_prefix + "demo0.png", "hidform0", "hidform1")});  
+    }
+
+
+    function change(selectObj)
+    {
+       
+       var data = $.parseJSON(selectObj.value);
+       var type = data.val;
+       var x1 = data.img;
+       var y = 1;
+
+       console.log(x1);
+       if(type=="solve")
+           putpic3();
+       else
+          {
+             // if(type=="explain")
+             //   {                  
+             //      set=1;
+             //   }
+
+             var x2 = parseInt(x1, 10);
+             var y1 = ctr - 1;
+             console.log(ctr)
+             var current_state = JSON.parse(sessionStorage.getItem("current_state"));
+             var selected_action = current_state[data.selection];
+             console.log(selected_action[0]);
+             generateNewElement(ctr, x1, selected_action[1], selected_action[2], selected_action[3], function() {renderImage(task_prefix + "demo1" + ".png", "hidform" + y1 + "", "hidform" + ctr + ""); ctr = ctr+1});
+             render(task_prefix + "explanation" + "1" + "_" + "1" + ".txt")
+             global+=x1
+             
+
+          }
+
+      done.push(x2);
+      console.log(done)
+    }
+
+    function change2()
+    {
+      var y=1
+       var x1 = document.getElementById("select2").value;
+
+       console.log(x1);
+       if(x1=="solve")
+           putpic3();
+       else
+           {
+              if(x1=="explain")
+               {
+                  while(done.includes(y))
+                      y=y+1;
+
+                  x1=y;
+                  set=1;
+               }
+             console.log("sf")
+             console.log(x1)
+             console.log(y)
+             generateNewElement(3)
+             renderImage("demo" + x1 + ".png", "hidform2", "hidform3")
+             render(task_prefix + "explanation" + x1 + ".txt")
+             global+=x1
+             console.log(global)
+          }
+
+      done.push(x1);
+
+    }
+
+    function change3()
+    {
+       var x1 = document.getElementById("select3").value;
+
+       console.log(x1);
+       if(x1=="solve")
+           putpic3();
+       else
+            {
+             generateNewElement(4)
+             renderImage(task_prefix + "demo" + x1 + ".png", "hidform3", "hidform4")
+             render(task_prefix + "explanation" + x1 + ".txt")
+             global+=x1
+            }
+
+    }
+
+    function change4()
+    {
+       var x1 = document.getElementById("select4").value;
+
+       console.log(x1);
+       if(x1=="solve")
+           putpic3();
+       else
+            {
+             generateNewElement(5)
+             renderImage(task_prefix + "demo" + x1 + ".png", "hidform4", task_prefix + "hidform5")
+              render(task_prefix + "explanation" + x1 + ".txt")
+              global+=x1
+            }
+
+    }
+
+    function putpicTakeArg(key, explanation, image, hidForm, displayForm, num)
+    {
+      console.log(explanation)
+      render(explanation)
+      generateNewElement(num)
+
+      console.log(key)
+
+ }
+
+
+    function putpic3()
+    {
+      var z = document.getElementById(task_prefix + "hidform5");
+      if (z.style.display === "none")
+      {
+        z.style.display = "block";
+      }
+      // render("explanation4.txt");
+    }
+
+    function showf()
+    {
+      renderImage(task_prefix + "demo8.png", task_prefix + "last", task_prefix + "last")
+
+    }
+
+     function showf1()
+    {
+
+      renderImage(task_prefix + "demo8.png", task_prefix + "last1", task_prefix + "last1")
+
+    }
+
+    function newf()
+    {
+      location.href = "test3.html";
+      document.getElementById("demo").style.color = "red";
+    }
+  </script>
+</html>

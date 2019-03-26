@@ -1,0 +1,24 @@
+node id,node name,alpha,beta,gamma
+1,Full Body,0.68,0,0
+2,Upper Body,0.73,0.92,0.2
+3,Lower Body,0.7,0,0.84
+4,Right Arm,0.93,0,0.9
+5,Torso,0.68,0,0.7
+6,Left Arm,0.78,0,0.79
+7,Right Leg,0.8,0,0.76
+8,Left Leg,0.82,0,0
+9,right shoulder,0.79,0.92,0.75
+10,right elbow,0.8,0,0.78
+11,right wrist,0.78,0,0.73
+12,head,0.85,0,0.78
+13,neck,0.97,0,0.93
+14,left shoulder,0.7,0.8,0.6
+15,left elbow,0.69,0.84,0.73
+16,left wrist,0.73,0.72,0.18
+17,rigth hip,0.7,0,0.6
+18,right knee,0.82,0.82,0.83
+19,right ankle,0.92,0.9,0.88
+20,left hip,0.78,0.79,0.76
+21,left knee,0.89,0,0.8
+22,left ankle,0.92,0.82,0.85
+1,Task1_1.jpg,Is the person in the image running or walking?,Running,Walking
